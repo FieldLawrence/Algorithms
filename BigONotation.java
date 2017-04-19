@@ -8,15 +8,25 @@ public class BigONotation {
     private int[] theArray;
     private int arraySize;
     private int itemsInArray = 0;
-    static long startTime;
-    static long endTime;
+    private static long startTime;
+    private static long endTime;
 
     public static void main(String[] args) {
-
+        //Add Item to Array Test
         BigONotation testAlgo = new BigONotation(10);
-        testAlgo.addItemToArray(10);
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
+        testAlgo.addItemToArray((int)(Math.random()*1000));
         System.out.println(Arrays.toString(testAlgo.theArray));
 
+        //Generate Random Arrays for Tests 2-5
         BigONotation testAlgo2 = new BigONotation(100000);
         testAlgo2.generateRandomArray();
         BigONotation testAlgo3 = new BigONotation(200000);
@@ -26,11 +36,13 @@ public class BigONotation {
         BigONotation testAlgo5 = new BigONotation(400000);
         testAlgo5.generateRandomArray();
 
-        testAlgo2.linearSearchForValue(20);
-        testAlgo3.linearSearchForValue(20);
-        testAlgo4.linearSearchForValue(20);
-        testAlgo5.linearSearchForValue(20);
+        //Linear Search Test
+        testAlgo2.linearSearch((int)(Math.random()*1000));
+        testAlgo3.linearSearch((int)(Math.random()*1000));
+        testAlgo4.linearSearch((int)(Math.random()*1000));
+        testAlgo5.linearSearch((int)(Math.random()*1000));
 
+        //Generate Arrays for Tests 6-9
         BigONotation testAlgo6 = new BigONotation(10000);
         testAlgo6.generateRandomArray();
         BigONotation testAlgo7 = new BigONotation(20000);
@@ -40,96 +52,81 @@ public class BigONotation {
         BigONotation testAlgo9 = new BigONotation(40000);
         testAlgo9.generateRandomArray();
 
+        //Bubble Sort Test
         testAlgo6.bubbleSort();
         testAlgo7.bubbleSort();
         testAlgo8.bubbleSort();
         testAlgo9.bubbleSort();
 
-        testAlgo6.binarySearchForValue(20);
-        testAlgo7.binarySearchForValue(20);
-        testAlgo8.binarySearchForValue(20);
-        testAlgo9.binarySearchForValue(20);
+        //Binary Search Test
+        testAlgo6.binarySearch((int)(Math.random()*1000));
+        testAlgo7.binarySearch((int)(Math.random()*1000));
+        testAlgo8.binarySearch((int)(Math.random()*1000));
+        testAlgo9.binarySearch((int)(Math.random()*1000));
 
+        //Simple Quick Sort Test
         startTime = System.currentTimeMillis();
-
         testAlgo2.quickSort(0, testAlgo2.itemsInArray);
-
         endTime = System.currentTimeMillis();
         System.out.println("Quick Sort took " + (endTime - startTime));
 
         startTime = System.currentTimeMillis();
-
         testAlgo3.quickSort(0, testAlgo3.itemsInArray);
-
         endTime = System.currentTimeMillis();
         System.out.println("Quick Sort took " + (endTime - startTime));
 
         startTime = System.currentTimeMillis();
-
         testAlgo4.quickSort(0, testAlgo4.itemsInArray);
-
         endTime = System.currentTimeMillis();
         System.out.println("Quick Sort took " + (endTime - startTime));
 
         startTime = System.currentTimeMillis();
-
         testAlgo5.quickSort(0, testAlgo5.itemsInArray);
-
         endTime = System.currentTimeMillis();
         System.out.println("Quick Sort took " + (endTime - startTime));
-
     }
     // O(1)
-    public void addItemToArray (int newItem) {
-
+    private void addItemToArray (int newItem) {
         theArray [itemsInArray++] = newItem;
     }
     // O(N)
-    public void linearSearchForValue (int value) {
+    private void linearSearch(int value) {
 
         boolean valueInArray = false;
         String indexsWithValue = "";
-
         startTime = System.currentTimeMillis();
 
-        for (int i = 0; i <arraySize; i++){
-
+        for (int i = 0; i < arraySize; i++){
             if (theArray[i] == value){
                 valueInArray= true;
                 indexsWithValue += i + " ";
             }
         }
-
         System.out.println("Value Fount: " +valueInArray);
         endTime = System.currentTimeMillis();
         System.out.println("Linear Search Took: " + (endTime-startTime));
     }
     // O(N^2)
-    public void bubbleSort(){
+    private void bubbleSort(){
 
         startTime = System.currentTimeMillis();
 
         for (int i = arraySize -1 ; i > 1; i--) {
-
-            for (int j = 0; j<i; j++){
-
+            for (int j = 0; j < i; j++){
                 if (theArray[j] > theArray[j+1]) {
-                    swapValues(j , j+1);
+                    swapValues( j , j+1);
                 }
             }
         }
-
         endTime = System.currentTimeMillis();
         System.out.println("Bubble Sort Took: " + (endTime-startTime));
     }
     // O(logN)
-    public void binarySearchForValue (int value){
+    private void binarySearch(int value){
 
         startTime = System.currentTimeMillis();
-
         int lowIndex = 0;
         int highIndex = arraySize - 1;
-
         int timesThrough = 0;
 
         while (lowIndex <= highIndex){
@@ -137,24 +134,20 @@ public class BigONotation {
 
             if (theArray[middleIndex] < value)
                 lowIndex = middleIndex + 1;
-
                 else if(theArray[middleIndex] > value)
                     highIndex = middleIndex - 1;
-
                 else {
                     System.out.println("Found a match in index " + middleIndex);
                     lowIndex = highIndex + 1;
             }
-
             timesThrough++;
         }
-
         endTime = System.currentTimeMillis();
-        System.out.println("Binary Search Sort Took: " + (endTime-startTime));
-        System.out.println("Times Through : " + timesThrough);
+        System.out.println("Binary Search Took: " + (endTime-startTime) + " milliseconds");
+        System.out.println("Number of guesses : " + timesThrough);
     }
     // O(N*logN)
-    public void quickSort(int left, int right){
+    private void quickSort(int left, int right){
 
         if(right - left <=0)
             return;
@@ -166,8 +159,8 @@ public class BigONotation {
             quickSort(pivotLoation + 1, right);
         }
     }
-
-    public int partitionArray(int left,int right,int pivot) {
+    //Create the partition array to sort through
+    private int partitionArray(int left,int right,int pivot) {
         int leftPointer = left - 1;
         int rightPointer = right;
 
@@ -187,14 +180,13 @@ public class BigONotation {
         swapValues(leftPointer, right);
         return leftPointer;
     }
-    // Constructor
+    // Constructor to create a new array
     BigONotation(int size) {
-
         arraySize = size;
         theArray = new int[size];
     }
-
-    public void generateRandomArray() {
+    //Method to generate a random array
+    private void generateRandomArray() {
         for (int i = 0; i < arraySize; i++) {
 
             theArray[i] = (int) (Math.random() * 1000) + 10;
@@ -202,12 +194,10 @@ public class BigONotation {
 
         itemsInArray = arraySize - 1;
     }
-
-    public void swapValues (int indexOne, int indexTwo) {
-
+    //Swapping values for sorting
+    private void swapValues (int indexOne, int indexTwo) {
         int temp = theArray[indexOne];
         theArray [indexOne] = theArray[indexTwo];
         theArray[indexTwo] = temp;
     }
-
 }
